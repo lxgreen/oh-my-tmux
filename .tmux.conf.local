@@ -52,7 +52,9 @@ tmux_conf_new_session_prompt=false
 # automatic detection relies on the COLORTERM environment variable being defined
 # to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
 # see https://github.com/termstandard/colors
-tmux_conf_24b_colour=auto
+tmux_conf_24b_colour=true
+set  -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",alacritty:RGB"
 
 # gruvbox-based colors for dark theme
 tmux_conf_theme_colour_1="#080808"    # active window fg
@@ -364,6 +366,23 @@ bind C-s send-prefix
 # move status line to top
 set -g status-position top
 
+
+# -- bindings -----------------------------------------------------------------------
+
+# edit nvim configuration
+bind v new-window -n "~/.vimrc" "nvim ~/.vimrc && tmux source ~/.vimrc && tmux display \"~/.vimrc updated\""
+
+# open tasks
+bind t new-window -n "~/Nextcloud/Sync/Notes/" "cd ~/Nextcloud/Sync/Notes/ && nvim ~/Nextcloud/Sync/Notes/tasks.todo"
+
+# open notes
+bind n new-window -n "~/Nextcloud/Sync/Notes/" "cd ~/Nextcloud/Sync/Notes/ && nvim -u ~/Nextcloud/Sync/Notes/infra/init.vim ~/Nextcloud/Sync/Notes/"
+
+# open alacritty config
+bind a new-window -n "~/.config/alacritty/" "nvim ~/.config/alacritty/alacritty.yml"
+
+# edit zsh configuration
+bind z new-window -n "$ZDOTDIR" "nvim $ZDOTDIR && tmux display \"zsh updated\" && exec zsh"
 
 # -- tpm -----------------------------------------------------------------------
 
